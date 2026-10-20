@@ -1,0 +1,6 @@
+{
+  "name": "Altto",
+  "description": "Aplicativo editorial de leitura cristã com áreas exclusivas para Bíblia Sagrada, Devocional diário e Biblioteca digital.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

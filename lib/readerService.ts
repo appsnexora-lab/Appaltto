@@ -79,6 +79,13 @@ export async function saveReadingProgress(
   if (contentType === 'book') {
     recordActiveReading(contentId);
   }
+
+  // Background non-blocking persistence to Cloud Firestore (Phase 15.3)
+  try {
+    const { syncReadingProgressToCloud, syncPreferencesToCloud } = await import('./firebaseSync');
+    syncReadingProgressToCloud(progress).catch(() => {});
+    syncPreferencesToCloud().catch(() => {});
+  } catch {}
 }
 
 // Bookmarks

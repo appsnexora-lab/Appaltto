@@ -241,7 +241,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ onOpenReader }) => {
       const pendingCovers: Record<string, string> = {};
       let batchTimer: NodeJS.Timeout | null = null;
       ensureAllBookCovers(bookList, 30, (fresh) => {
-        if (!isValidCoverUrl(fresh.coverUrl)) return;
+        if (!fresh.coverUrl || !isValidCoverUrl(fresh.coverUrl)) return;
         pendingCovers[fresh.id] = fresh.coverUrl;
         if (!batchTimer) {
           batchTimer = setTimeout(() => {

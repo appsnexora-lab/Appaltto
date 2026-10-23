@@ -79,6 +79,9 @@ export function saveUserProfile(data: Partial<UserProfile>): UserProfile {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       window.dispatchEvent(new Event('altto_profile_updated'));
+      import('./firebaseSync').then(({ syncUserProfileToCloud }) => {
+        syncUserProfileToCloud(updated).catch(() => {});
+      }).catch(() => {});
     } catch (err) {
       console.error('Erro ao salvar perfil:', err);
     }

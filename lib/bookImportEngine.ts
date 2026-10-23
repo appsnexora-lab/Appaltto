@@ -1062,6 +1062,9 @@ export class SafeBatchImportController {
 
     // 5. STEP FIVE: Persist metadata record in IndexedDB only after blob is verified
     await dbPut('books', newBook);
+    import('./firebaseSync').then(({ syncBookMetadataToCloud }) => {
+      syncBookMetadataToCloud(newBook).catch(() => {});
+    }).catch(() => {});
     return newBook;
   }
 }

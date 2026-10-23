@@ -12,6 +12,7 @@ import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 import { getBibles, importOfficialAlmeidaBible, saveBibleReading } from '@/lib/bibleService';
 import { getDevotionals, importOfficialDevotional, saveDevotionalReading } from '@/lib/devotionalService';
 import { recordActiveReading } from '@/lib/readerService';
+import { performFullCloudSync } from '@/lib/firebaseSync';
 import { ContentType, DevotionalDay, Book } from '@/types';
 
 interface ReaderState {
@@ -77,6 +78,8 @@ function AlttoAppContent() {
         if (tasks.length > 0) {
           await Promise.all(tasks);
         }
+        // Background two-way cloud synchronization (non-blocking)
+        performFullCloudSync().catch((e) => console.debug('Sync background:', e));
       } catch (err) {
         console.warn('Init error:', err);
       }

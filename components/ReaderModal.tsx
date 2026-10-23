@@ -220,7 +220,6 @@ export const ReaderModal: React.FC<ReaderProps> = ({
         });
 
       return () => {
-        clearTimeout(timer);
         isCancelled = true;
       };
     }

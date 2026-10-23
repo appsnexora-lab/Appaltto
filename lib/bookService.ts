@@ -15,6 +15,9 @@ export async function getBookById(id: string): Promise<Book | undefined> {
 
 export async function updateBook(book: Book): Promise<void> {
   await dbPut('books', book);
+  import('./firebaseSync').then(({ syncBookMetadataToCloud }) => {
+    syncBookMetadataToCloud(book).catch(() => {});
+  }).catch(() => {});
 }
 
 /**
